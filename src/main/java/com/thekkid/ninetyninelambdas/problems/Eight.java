@@ -6,6 +6,9 @@ import com.jnape.palatable.lambda.functions.builtin.fn1.Magnetize;
 import static com.jnape.palatable.lambda.functions.builtin.fn1.CatMaybes.catMaybes;
 import static com.jnape.palatable.lambda.functions.builtin.fn2.Map.map;
 
+/**
+ * Eliminate consecutive duplicates of list elements
+ */
 public class Eight {
     public static <A> Iterable<A> eight(Iterable<A> as) {
         return Magnetize.<A>magnetize()
