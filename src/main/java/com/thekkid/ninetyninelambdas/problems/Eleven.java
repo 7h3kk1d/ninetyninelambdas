@@ -2,27 +2,21 @@ package com.thekkid.ninetyninelambdas.problems;
 
 import com.jnape.palatable.lambda.adt.choice.Choice2;
 import com.jnape.palatable.lambda.adt.hlist.Tuple2;
+import com.jnape.palatable.lambda.functions.Fn1;
 
-import static com.jnape.palatable.lambda.adt.hlist.HList.tuple;
-import static com.jnape.palatable.lambda.functions.Fn1.fn1;
-import static com.jnape.palatable.lambda.functions.builtin.fn1.CatMaybes.catMaybes;
-import static com.jnape.palatable.lambda.functions.builtin.fn1.Head.head;
-import static com.jnape.palatable.lambda.functions.builtin.fn1.Magnetize.magnetize;
-import static com.jnape.palatable.lambda.functions.builtin.fn1.Size.size;
-import static com.jnape.palatable.lambda.functions.builtin.fn2.GT.gt;
+import static com.jnape.palatable.lambda.functions.builtin.fn2.CmpEq.cmpEq;
 import static com.jnape.palatable.lambda.functions.builtin.fn2.Map.map;
 import static com.jnape.palatable.lambda.functions.builtin.fn4.IfThenElse.ifThenElse;
+import static com.thekkid.ninetyninelambdas.problems.Ten.ten;
 
 /**
  * Modified run-length encoding
  */
 public class Eleven {
     public static <T> Iterable<Choice2<T, Tuple2<Long, T>>> eleven(Iterable<T> ts) {
-        return catMaybes(map(tRepeated -> head(tRepeated)
-                        .fmap(t -> ifThenElse(gt(1L).contraMap(Tuple2::_1),
-                                Choice2::b,
-                                fn1(Tuple2<Long, T>::_2).fmap(Choice2::a),
-                                tuple(size(tRepeated), t))),
-                magnetize(ts)));
+        return map(ifThenElse(cmpEq(1L)
+                        .contraMap(Tuple2::_1),
+                Fn1.<Tuple2<Long, T>, T>fn1(Tuple2::_2).fmap(Choice2::a),
+                Choice2::b), ten(ts));
     }
 }
