@@ -15,7 +15,7 @@ import static com.jnape.palatable.lambda.functions.builtin.fn1.Constantly.consta
 import static com.jnape.palatable.lambda.functions.builtin.fn1.Size.size;
 import static com.jnape.palatable.lambda.functions.builtin.fn2.Filter.filter;
 import static com.jnape.palatable.lambda.functions.builtin.fn2.Into.into;
-import static com.jnape.palatable.lambda.functions.builtin.fn2.LTE.lte;
+import static com.jnape.palatable.lambda.functions.builtin.fn2.LT.lt;
 import static com.jnape.palatable.lambda.functions.builtin.fn2.Map.map;
 import static com.jnape.palatable.lambda.functions.builtin.fn2.Unfoldr.unfoldr;
 import static com.jnape.palatable.lambda.functions.builtin.fn2.Zip.zip;
@@ -44,7 +44,7 @@ public class TwentyThree {
                     return io(random::nextLong)
                             .fmap(j -> abs(j) % sizeRemaining)
                             .fmap(i -> {
-                                Fn1<Long, Maybe<Tuple2<Boolean, Tuple2<Long, Long>>>> longMaybeFn1 = ifThenElse(lte(truesRemaining),
+                                Fn1<Long, Maybe<Tuple2<Boolean, Tuple2<Long, Long>>>> longMaybeFn1 = ifThenElse(lt(truesRemaining),
                                         constantly(just(tuple(true, tuple(truesRemaining - 1, sizeRemaining - 1)))),
                                         constantly(just(tuple(false, tuple(truesRemaining, sizeRemaining - 1)))));
                                 return longMaybeFn1.apply(i);
